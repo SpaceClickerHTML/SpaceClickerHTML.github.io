@@ -50,11 +50,13 @@ function confirmRebirth() {
         updateDisplay();
         saveGameState();
         showNotification(`Congratulations! You've rebirthed. Your luck has increased to x${player.luckFactor}!`);
+        hideRebirthConfirmation(); // Close the rebirth confirmation popup
     } else {
         alert("Maximum number of rebirths reached.");
         hideRebirthConfirmation();
     }
 }
+
 
 function calculateLuckFactor() {
     return Math.pow(2, player.rebirths) * (1 + 0.01 * (player.level - 1));
