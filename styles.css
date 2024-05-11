@@ -48,8 +48,3 @@ h2 {
     height: auto;
     margin: 10px auto; /* Center and add space around the image */
 }
-#resetButton {
-    position: absolute;
-    left: 10px;
-    bottom: 10px;
-}

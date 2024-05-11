@@ -51,16 +51,15 @@ function updateDisplay() {
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
 
-    // Hide or show rebirth button based on the level
+    // Hide or show rebirth button
     const rebirthButton = document.getElementById('rebirthButton');
     rebirthButton.style.display = player.level >= 100 ? 'block' : 'none';
 
-    // Clear and update the image container
+    // Display the latest collected image only
     const imagesContainer = document.getElementById('collectedImages');
-    imagesContainer.innerHTML = '';
-    // If there are images, display the latest one
     if (player.collectedImages.length > 0) {
         const latestImageRarity = player.collectedImages[player.collectedImages.length - 1];
+        imagesContainer.innerHTML = ''; // Clear previous image
         let imgElement = document.createElement('img');
         imgElement.src = imagesByRarity[latestImageRarity][0];
         imgElement.alt = latestImageRarity;
@@ -68,7 +67,6 @@ function updateDisplay() {
         imagesContainer.appendChild(imgElement);
     }
 }
-
 
 
 
@@ -121,30 +119,4 @@ function getProbabilityThresholds(level, luckFactor) {
         galaxy: 1000 * luckFactor,
         universe: 100 * luckFactor
     };
-}
-
-function resetGame() {
-    // Confirm the reset action
-    if (!confirm("Are you sure you want to reset all your progress? This action cannot be undone.")) {
-        return;
-    }
-
-    // Reset player object
-    player = {
-        level: 1,
-        rebirths: 0,
-        coins: 0,
-        collectedImages: [],
-        totalImagesRequired: 5,
-        luckFactor: 1 // Reset luck factor to initial state
-    };
-
-    // Clear local storage
-    localStorage.removeItem('playerState');
-
-    // Update display to reflect reset
-    updateDisplay();
-    
-    // Log the reset action
-    console.log("Game has been reset to initial state.");
 }
