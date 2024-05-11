@@ -34,3 +34,10 @@
 h2 {
     color: #333;
 }
+
+#bigBang {
+    display: block;
+    width: 100px; /* Set a smaller size */
+    height: auto;
+    margin: 20px auto;
+}

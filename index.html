@@ -8,13 +8,14 @@
 <body>
     <h1>Space Clicker Game</h1>
     <div>
-        <img src="bigbang.png" id="bigBang" onclick="attemptCollect()">
+        <img src="bigbang.png" id="bigBang" onclick="attemptCollect()" alt="Big Bang">
         <div id="status">
             <p>Level: <span id="level">1</span></p>
             <p>Rebirths: <span id="rebirths">0</span></p>
             <p>Coins: <span id="coins">0</span></p>
         </div>
-        <button onclick="showRebirthConfirmation()">Rebirth</button>
+        <button id="rebirthButton" onclick="showRebirthConfirmation()" style="display: none;">Rebirth</button>
+        <div id="collectedImages"></div>
     </div>
     <!-- Modal for Rebirth Confirmation -->
     <div id="rebirthModal" class="modal">
