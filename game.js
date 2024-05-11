@@ -25,18 +25,19 @@ function attemptCollect() {
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
-    
+
     // Check if the number of collected images meets the threshold to level up
     if (player.collectedImages.length >= player.totalImagesRequired) {
         if (player.level < 100) {
             player.level++;
-            player.totalImagesRequired += player.level * 5; // Accumulate total images required for the next level
+            player.totalImagesRequired += 5 * player.level; // Increment the image requirement for the next level
         }
     }
 
     updateDisplay();
     saveGameState();
 }
+
 
 
 function randomImage() {
