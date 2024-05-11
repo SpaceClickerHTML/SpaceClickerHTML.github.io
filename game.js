@@ -16,62 +16,52 @@ let player = {
     rebirths: 0,
     coins: 0,
     collectedImages: [],
-    levelThreshold: 5,
-    luckFactor: 1
+    imagesRequiredForNextLevel: 5,
+    totalImagesRequired: 5 // Initial images required to level up
 };
 
 function attemptCollect() {
-    // Check if the number of collected images meets the threshold to level up
-    if (player.collectedImages.length >= player.levelThreshold) {
-        if (player.level < 100) { // Ensure the level does not exceed 100
-            player.level++;
-            // Increment the threshold for the next level
-            player.levelThreshold += player.level * 5; // Each level requires 5 more images than the last
-        }
-    }
-    
     // Collect an image and gain coins
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
+    
+    // Check if the number of collected images meets the threshold to level up
+    if (player.collectedImages.length >= player.totalImagesRequired && player.level < 100) {
+        player.level++;
+        player.imagesRequiredForNextLevel += 5;
+        player.totalImagesRequired += player.imagesRequiredForNextLevel;
+    }
 
-    // Update the display and save game state
     updateDisplay();
     saveGameState();
 }
 
-
 function randomImage() {
     let thresholds = getProbabilityThresholds(player.level, player.luckFactor);
     let roll = Math.random() * 1000000; // Adjust range based on the most rare chance
-
-    if (roll < thresholds.universe) return 'universe';
-    if (roll < thresholds.galaxy) return 'galaxy';
-    if (roll < thresholds.solarSystem) return 'solarSystem';
-    if (roll < thresholds.star) return 'star';
-    return 'planet';
+    return Object.keys(imagesByRarity).find(rarity => roll < thresholds[rarity]) || 'planet';
 }
 
 function updateDisplay() {
     document.getElementById('level').textContent = player.level;
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
+    
+    // Hide or show rebirth button
+    const rebirthButton = document.getElementById('rebirthButton');
+    rebirthButton.style.display = player.level >= 100 && player.rebirths < 10 ? 'block' : 'none';
 
-    // Disable the rebirth button if the maximum rebirths have been reached
-    const rebirthButton = document.querySelector('button[onclick="showRebirthConfirmation()"]');
-    rebirthButton.disabled = player.rebirths >= 10;
-}
-
-function showRebirthConfirmation() {
-    if (player.rebirths < 10) {
-        document.getElementById('rebirthModal').style.display = 'block';
-    } else {
-        alert("Maximum rebirth level reached. No more rebirths are allowed.");
-    }
-}
-
-function hideRebirthConfirmation() {
-    document.getElementById('rebirthModal').style.display = 'none';
+    // Display collected images
+    const imagesContainer = document.getElementById('collectedImages');
+    imagesContainer.innerHTML = ''; // Clear previous images
+    player.collectedImages.forEach(img => {
+        let imgElement = document.createElement('img');
+        imgElement.src = imagesByRarity[img];
+        imgElement.alt = img;
+        imgElement.className = 'collected-image';
+        imagesContainer.appendChild(imgElement);
+    });
 }
 
 function confirmRebirth() {
@@ -80,11 +70,24 @@ function confirmRebirth() {
         player.level = 1;
         player.coins = 0;
         player.collectedImages = [];
-        player.levelThreshold = 5;
+        player.imagesRequiredForNextLevel = 5;
+        player.totalImagesRequired = 5;
         player.luckFactor *= 2;
-        hideRebirthConfirmation();
         updateDisplay();
         saveGameState();
+    } else {
+        alert("Maximum number of rebirths reached.");
+    }
+}
+
+function saveGameState() {
+    localStorage.setItem('playerState', JSON.stringify(player));
+}
+
+function loadGameState() {
+    const savedState = localStorage.getItem('playerState');
+    if (savedState) {
+        player = JSON.parse(savedState);
     }
 }
 
@@ -97,15 +100,4 @@ function getProbabilityThresholds(level, luckFactor) {
         galaxy: 1000 * luckFactor,
         universe: 100 * luckFactor
     };
-}
-
-function saveGameState() {
-    localStorage.setItem('playerState', JSON.stringify(player));
-}
-
-function loadGameState() {
-    const savedState = localStorage.getItem('playerState');
-    if (savedState) {
-        player = JSON.parse(savedState);
-    }
 }
