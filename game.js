@@ -47,8 +47,9 @@ function randomImage() {
     if (roll < thresholds.galaxy) return 'galaxy';
     if (roll < thresholds.solarSystem) return 'solarSystem';
     if (roll < thresholds.star) return 'star';
-    return 'planet';  // Default to planet if none of the other conditions are met
+    return 'planet';  // Most common, highest threshold
 }
+
 
 
 function updateDisplay() {
