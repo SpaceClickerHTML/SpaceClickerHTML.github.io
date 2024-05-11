@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const imagesByRarity = {
-    planet: ['images/planet/Earth.png'],
+    planet: ['images/planet/earth.png'],
     star: ['images/star/sun.png'],
     solarSystem: ['images/solarsystem/solarsystem.png'],
     galaxy: ['images/galaxy/milkyway.png'],
