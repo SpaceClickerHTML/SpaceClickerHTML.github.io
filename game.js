@@ -16,8 +16,10 @@ let player = {
     rebirths: 0,
     coins: 0,
     collectedImages: [],
-    totalImagesRequired: 5 // Initial images required to reach level 2
+    totalImagesRequired: 5, // Initial images required to reach level 2
+    luckFactor: 1 // Initialize luck factor
 };
+
 
 function attemptCollect() {
     const imageRarity = randomImage();
