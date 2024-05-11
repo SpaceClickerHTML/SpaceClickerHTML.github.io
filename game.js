@@ -16,8 +16,7 @@ let player = {
     rebirths: 0,
     coins: 0,
     collectedImages: [],
-    imagesRequiredForNextLevel: 5,
-    totalImagesRequired: 5 // Initial images required to level up
+    totalImagesRequired: 5 // Initial images required to reach level 2
 };
 
 function attemptCollect() {
@@ -27,10 +26,11 @@ function attemptCollect() {
     player.coins += 5;
     
     // Check if the number of collected images meets the threshold to level up
-    if (player.collectedImages.length >= player.totalImagesRequired && player.level < 100) {
-        player.level++;
-        player.imagesRequiredForNextLevel += 5;
-        player.totalImagesRequired += player.imagesRequiredForNextLevel;
+    if (player.collectedImages.length >= player.totalImagesRequired) {
+        if (player.level < 100) {
+            player.level++;
+            player.totalImagesRequired = player.level * 5; // Set new threshold for the next level
+        }
     }
 
     updateDisplay();
@@ -50,7 +50,7 @@ function updateDisplay() {
     
     // Hide or show rebirth button
     const rebirthButton = document.getElementById('rebirthButton');
-    rebirthButton.style.display = player.level >= 100 && player.rebirths < 10 ? 'block' : 'none';
+    rebirthButton.style.display = player.level >= 100 ? 'block' : 'none';
 
     // Display collected images
     const imagesContainer = document.getElementById('collectedImages');
@@ -70,8 +70,7 @@ function confirmRebirth() {
         player.level = 1;
         player.coins = 0;
         player.collectedImages = [];
-        player.imagesRequiredForNextLevel = 5;
-        player.totalImagesRequired = 5;
+        player.totalImagesRequired = 5; // Reset to initial threshold
         player.luckFactor *= 2;
         updateDisplay();
         saveGameState();
