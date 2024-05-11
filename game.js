@@ -21,18 +21,25 @@ let player = {
 };
 
 function attemptCollect() {
+    // Check if the number of collected images meets the threshold to level up
     if (player.collectedImages.length >= player.levelThreshold) {
-        if (player.level < 100) {
+        if (player.level < 100) { // Ensure the level does not exceed 100
             player.level++;
+            // Increment the threshold for the next level
+            player.levelThreshold += player.level * 5; // Each level requires 5 more images than the last
         }
-        player.levelThreshold += 5; // Increase threshold by 5
     }
+    
+    // Collect an image and gain coins
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
+
+    // Update the display and save game state
     updateDisplay();
     saveGameState();
 }
+
 
 function randomImage() {
     let thresholds = getProbabilityThresholds(player.level, player.luckFactor);
