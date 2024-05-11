@@ -37,7 +37,14 @@ h2 {
 
 #bigBang {
     display: block;
-    width: 100px; /* Set a smaller size */
+    margin: 20px auto; /* Center the image horizontally */
+    width: 100px; /* Adjust width as needed */
     height: auto;
-    margin: 20px auto;
+}
+
+.collected-image {
+    display: block;
+    width: 50px; /* Smaller width */
+    height: auto;
+    margin: 10px auto; /* Center and add space around the image */
 }
