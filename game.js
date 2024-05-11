@@ -64,20 +64,34 @@ function updateDisplay() {
     });
 }
 
+function showRebirthConfirmation() {
+    // Display the modal that asks for rebirth confirmation
+    document.getElementById('rebirthModal').style.display = 'block';
+}
+
+function hideRebirthConfirmation() {
+    // Hide the rebirth confirmation modal
+    document.getElementById('rebirthModal').style.display = 'none';
+}
+
 function confirmRebirth() {
     if (player.rebirths < 10) {
+        // Logic to reset the game and increase rebirth count
         player.rebirths++;
         player.level = 1;
         player.coins = 0;
         player.collectedImages = [];
-        player.totalImagesRequired = 5; // Reset to initial threshold
+        player.totalImagesRequired = 5; // Reset images needed for next level
         player.luckFactor *= 2;
+        hideRebirthConfirmation();
         updateDisplay();
         saveGameState();
     } else {
         alert("Maximum number of rebirths reached.");
+        hideRebirthConfirmation();
     }
 }
+
 
 function saveGameState() {
     localStorage.setItem('playerState', JSON.stringify(player));
