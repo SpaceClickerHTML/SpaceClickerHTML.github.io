@@ -20,7 +20,6 @@ let player = {
 };
 
 function attemptCollect() {
-    // Collect an image and gain coins
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
@@ -29,13 +28,14 @@ function attemptCollect() {
     if (player.collectedImages.length >= player.totalImagesRequired) {
         if (player.level < 100) {
             player.level++;
-            player.totalImagesRequired = player.level * 5; // Set new threshold for the next level
+            player.totalImagesRequired += player.level * 5; // Accumulate total images required for the next level
         }
     }
 
     updateDisplay();
     saveGameState();
 }
+
 
 function randomImage() {
     let thresholds = getProbabilityThresholds(player.level, player.luckFactor);
@@ -47,7 +47,7 @@ function updateDisplay() {
     document.getElementById('level').textContent = player.level;
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
-    
+
     // Hide or show rebirth button
     const rebirthButton = document.getElementById('rebirthButton');
     rebirthButton.style.display = player.level >= 100 ? 'block' : 'none';
@@ -55,14 +55,18 @@ function updateDisplay() {
     // Display collected images
     const imagesContainer = document.getElementById('collectedImages');
     imagesContainer.innerHTML = ''; // Clear previous images
-    player.collectedImages.forEach(img => {
+    player.collectedImages.forEach(imgRarity => {
         let imgElement = document.createElement('img');
-        imgElement.src = imagesByRarity[img];
-        imgElement.alt = img;
+        let imgSrc = imagesByRarity[imgRarity][0]; // Ensure the rarity name matches and pick the first image for that rarity
+        imgElement.src = imgSrc;
+        imgElement.alt = imgRarity;
         imgElement.className = 'collected-image';
         imagesContainer.appendChild(imgElement);
+
+        console.log("Adding image:", imgSrc); // Debug output to verify what is being set
     });
 }
+
 
 function showRebirthConfirmation() {
     // Display the modal that asks for rebirth confirmation
