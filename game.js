@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const imagesByRarity = {
-    planet: ['Earth.png'],
-    star: ['sun.png'],
-    solarSystem: ['solarsystem.png'],
-    galaxy: ['milkyway.png'],
-    universe: ['universe.png']
+    planet: ['images/planet/Earth.png'],
+    star: ['images/star/sun.png'],
+    solarSystem: ['images/solarsystem/solarsystem.png'],
+    galaxy: ['images/galaxy/milkyway.png'],
+    universe: ['images/universe/universe.png']
 };
 
 let player = {
