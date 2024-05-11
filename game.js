@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const imagesByRarity = {
-    planet: [],
-    star: [],
-    solarSystem: [],
-    galaxy: [],
-    universe: []
+    planet: ['Earth.png'],
+    star: ['sun.png'],
+    solarSystem: ['solarsystem.png'],
+    galaxy: ['milkyway.png'],
+    universe: ['universe.png']
 };
 
 let player = {
