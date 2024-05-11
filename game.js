@@ -39,12 +39,17 @@ function attemptCollect() {
 }
 
 
-
 function randomImage() {
     let thresholds = getProbabilityThresholds(player.level, player.luckFactor);
-    let roll = Math.random() * 1000000; // Adjust range based on the most rare chance
-    return Object.keys(imagesByRarity).find(rarity => roll < thresholds[rarity]) || 'planet';
+    let roll = Math.random() * 1000000;  // Random number from 0 to 999999
+
+    if (roll < thresholds.universe) return 'universe';
+    if (roll < thresholds.galaxy) return 'galaxy';
+    if (roll < thresholds.solarSystem) return 'solarSystem';
+    if (roll < thresholds.star) return 'star';
+    return 'planet';  // Default to planet if none of the other conditions are met
 }
+
 
 function updateDisplay() {
     document.getElementById('level').textContent = player.level;
@@ -111,12 +116,16 @@ function loadGameState() {
 }
 
 function getProbabilityThresholds(level, luckFactor) {
-    let scale = (level - 1) / 99; // Normalize scale between 0 and 1
+    // Normalize scale based on the level, 0 at level 1 and approaching 1 at level 100
+    let scale = (level - 1) / 99;
+
+    // Adjust probabilities. These numbers are examples and should be balanced based on gameplay testing.
     return {
-        planet: 500000 * luckFactor,
-        star: 100000 * luckFactor,
-        solarSystem: 10000 * luckFactor,
-        galaxy: 1000 * luckFactor,
-        universe: 100 * luckFactor
+        planet: 500000 * luckFactor, // Most common
+        star: 100000 * luckFactor + scale * 400000, // Becomes less rare
+        solarSystem: 10000 * luckFactor + scale * 90000, // Becomes less rare
+        galaxy: 1000 * luckFactor + scale * 9000, // Becomes less rare
+        universe: 100 * luckFactor + scale * 900 // Becomes less rare
     };
 }
+
