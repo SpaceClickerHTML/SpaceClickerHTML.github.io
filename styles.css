@@ -38,13 +38,13 @@ h2 {
 #bigBang {
     display: block;
     margin: 20px auto; /* Center the image horizontally */
-    width: 100px; /* Adjust width as needed */
-    height: auto;
+    width: 150px; /* Increase the width as needed */
+    height: auto; /* Keep height auto to maintain aspect ratio */
 }
 
 .collected-image {
     display: block;
-    width: 50px; /* Smaller width */
-    height: auto;
-    margin: 10px auto; /* Center and add space around the image */
+    width: 100px; /* Increase the width as needed */
+    height: auto; /* Keep height auto to maintain aspect ratio */
+    margin: 10px auto; /* Center and add some space around the image */
 }
