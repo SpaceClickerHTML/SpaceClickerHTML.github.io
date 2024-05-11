@@ -55,20 +55,19 @@ function updateDisplay() {
     const rebirthButton = document.getElementById('rebirthButton');
     rebirthButton.style.display = player.level >= 100 ? 'block' : 'none';
 
-    // Display collected images
+    // Display the latest collected image only
     const imagesContainer = document.getElementById('collectedImages');
-    imagesContainer.innerHTML = ''; // Clear previous images
-    player.collectedImages.forEach(imgRarity => {
+    if (player.collectedImages.length > 0) {
+        const latestImageRarity = player.collectedImages[player.collectedImages.length - 1];
+        imagesContainer.innerHTML = ''; // Clear previous image
         let imgElement = document.createElement('img');
-        let imgSrc = imagesByRarity[imgRarity][0]; // Ensure the rarity name matches and pick the first image for that rarity
-        imgElement.src = imgSrc;
-        imgElement.alt = imgRarity;
+        imgElement.src = imagesByRarity[latestImageRarity][0];
+        imgElement.alt = latestImageRarity;
         imgElement.className = 'collected-image';
         imagesContainer.appendChild(imgElement);
-
-        console.log("Adding image:", imgSrc); // Debug output to verify what is being set
-    });
+    }
 }
+
 
 
 function showRebirthConfirmation() {
