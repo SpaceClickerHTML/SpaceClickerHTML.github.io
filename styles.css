@@ -48,3 +48,23 @@ h2 {
     height: auto; /* Keep height auto to maintain aspect ratio */
     margin: 10px auto; /* Center and add some space around the image */
 }
+.notification {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: #f4f4f9;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    color: #333;
+    font-size: 1.2em;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: fadeInOut 3s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
