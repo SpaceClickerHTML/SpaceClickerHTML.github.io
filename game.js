@@ -82,22 +82,23 @@ function updateDisplay() {
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
 
-    // Hide or show rebirth button
-    const rebirthButton = document.getElementById('rebirthButton');
-    rebirthButton.style.display = player.level >= 100 ? 'block' : 'none';
-
-    // Display the latest collected image only
     const imagesContainer = document.getElementById('collectedImages');
+    imagesContainer.innerHTML = ''; // Clear previous images
     if (player.collectedImages.length > 0) {
-        const latestImageRarity = player.collectedImages[player.collectedImages.length - 1];
-        imagesContainer.innerHTML = ''; // Clear previous image
-        let imgElement = document.createElement('img');
-        imgElement.src = imagesByRarity[latestImageRarity][0];
-        imgElement.alt = latestImageRarity;
+        const latestRarity = player.collectedImages[player.collectedImages.length - 1];
+        const imgElement = document.createElement('img');
+        imgElement.src = imagesByRarity[latestRarity][0];
+        imgElement.alt = latestRarity;
         imgElement.className = 'collected-image';
         imagesContainer.appendChild(imgElement);
+
+        const rarityLabel = document.createElement('div');
+        rarityLabel.textContent = latestRarity.charAt(0).toUpperCase() + latestRarity.slice(1); // Capitalize the first letter
+        rarityLabel.className = `rarity-text ${latestRarity}`;
+        imagesContainer.appendChild(rarityLabel);
     }
 }
+
 
 
 
