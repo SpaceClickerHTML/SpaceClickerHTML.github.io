@@ -46,7 +46,18 @@ function updateDisplay() {
     document.getElementById('level').textContent = player.level;
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
+
+    // Display images
+    const container = document.getElementById('collectedImagesContainer');
+    container.innerHTML = '';  // Clear previous images
+    player.collectedImages.forEach(imageRarity => {
+        let imgElement = document.createElement('img');
+        imgElement.src = imagesByRarity[imageRarity];
+        imgElement.alt = `${imageRarity} image`;
+        container.appendChild(imgElement);
+    });
 }
+
 
 function showRebirthConfirmation() {
     document.getElementById('rebirthModal').style.display = 'block';
