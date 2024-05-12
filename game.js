@@ -43,7 +43,6 @@ function confirmRebirth() {
     if (player.rebirths < 10) {
         player.rebirths++;
         player.level = 1;
-        player.coins = 0;
         player.totalImagesRequired = 5;
         player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
         updateDisplay();
