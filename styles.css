@@ -9,14 +9,35 @@
     z-index: 1;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
+body {
+    font-family: Arial, sans-serif; /* Ensures a clean, readable font is used */
+    text-align: center; /* Centers your game's interface */
 }
+
+#bigBang {
+    cursor: pointer; /* Indicates that the image can be clicked */
+    width: 150px; /* Adjust size as necessary */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds some depth to your modal */
+    text-align: center; /* Ensures text within the modal is centered */
+}
+
+.button-link {
+    display: inline-block;
+    background-color: #4CAF50; /* A more vibrant color */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px; /* Adds space above the button */
+}
+
 
 .images {
     display: flex;
@@ -52,14 +73,6 @@ h2 {
     flex-direction: column;
     align-items: flex-start; /* Aligns the rarity sections to the left */
     padding: 20px;
-}
-
-
-#bigBang {
-    display: block;
-    margin: 20px auto; /* Center the image horizontally */
-    width: 150px; /* Increase the width as needed */
-    height: auto; /* Keep height auto to maintain aspect ratio */
 }
 
 .collected-image {
