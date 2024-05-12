@@ -149,6 +149,18 @@ h2 {
     color: #666;
 }
 
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#buyOptions {
+    text-align: center;
+    margin-top: 20px;
+}
+
 #buyOptions button {
     margin: 10px;
     padding: 10px 20px;
@@ -160,12 +172,14 @@ h2 {
 }
 
 #eggImage {
+    width: 180px; /* Adjust based on your design preference */
+    height: auto; /* Maintain aspect ratio */
     display: block;
-    margin: 20px auto;
-    width: 100px;
 }
 
 #inventory {
-    margin-top: 20px;
+    margin-top: 40px;
     text-align: center;
 }
+
+/* Additional styles for notification and modal can stay the same */
