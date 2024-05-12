@@ -94,3 +94,9 @@ h2 {
 .universe {
     color: gold;
 }
+.image-count {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #666;
+}
