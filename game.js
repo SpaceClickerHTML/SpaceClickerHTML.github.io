@@ -44,7 +44,7 @@ function confirmRebirth() {
         player.rebirths++;
         player.level = 1;
         player.coins = 0;
-        player.collectedImages = [];
+        // Do not reset collectedImages here
         player.totalImagesRequired = 5;
         player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
         updateDisplay();
@@ -56,6 +56,7 @@ function confirmRebirth() {
         hideRebirthConfirmation();
     }
 }
+
 
 
 function calculateLuckFactor() {
