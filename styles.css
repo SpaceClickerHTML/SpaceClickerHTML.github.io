@@ -148,3 +148,24 @@ h2 {
     font-size: 16px;
     color: #666;
 }
+
+#buyOptions button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#eggImage {
+    display: block;
+    margin: 20px auto;
+    width: 100px;
+}
+
+#inventory {
+    margin-top: 20px;
+    text-align: center;
+}
