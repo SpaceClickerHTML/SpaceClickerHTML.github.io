@@ -21,11 +21,13 @@
     <!-- Modal for Rebirth Confirmation -->
     <div id="rebirthModal" class="modal">
         <div class="modal-content">
+            <button class="close-button" onclick="hideRebirthConfirmation()">&times;</button>
             <p>Are you sure? All of your images will be erased, but your luck will increase by 2.</p>
             <button onclick="confirmRebirth()">Confirm</button>
             <button onclick="hideRebirthConfirmation()">Cancel</button>
         </div>
     </div>
+    
     <script src="game.js"></script>
 </body>
 </html>

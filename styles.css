@@ -27,6 +27,15 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds some depth to your modal */
     text-align: center; /* Ensures text within the modal is centered */
 }
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
 
 .button-link {
     display: inline-block;
