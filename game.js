@@ -118,16 +118,34 @@ function hideRebirthConfirmation() {
     document.getElementById('rebirthModal').style.display = 'none';
 }
 
-function showNotification(message) {
+function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
-    notification.className = 'notification';
+    notification.className = `notification ${type}`;  // Allows for different styles based on the type of message
     notification.textContent = message;
     document.body.appendChild(notification);
+
+    // Animate notification entrance and exit
+    notification.style.opacity = 0;
+    let opacity = 0;
+    const fadeIn = setInterval(() => {
+        if (opacity >= 1) clearInterval(fadeIn);
+        opacity += 0.05;
+        notification.style.opacity = opacity;
+    }, 10);
+
     // Remove the notification after 3 seconds
     setTimeout(() => {
-        notification.remove();
+        const fadeOut = setInterval(() => {
+            if (opacity <= 0) {
+                clearInterval(fadeOut);
+                notification.remove();
+            }
+            opacity -= 0.05;
+            notification.style.opacity = opacity;
+        }, 10);
     }, 3000);
 }
+
 
 
 function saveGameState() {
