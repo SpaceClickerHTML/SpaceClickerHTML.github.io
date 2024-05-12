@@ -80,7 +80,7 @@ h2 {
 }
 
 .star {
-    color: green;
+    color: rgb(29, 205, 29);
 }
 
 .solarSystem {
@@ -88,7 +88,7 @@ h2 {
 }
 
 .galaxy {
-    color: purple;
+    color: rgb(240, 56, 240);
 }
 
 .universe {
