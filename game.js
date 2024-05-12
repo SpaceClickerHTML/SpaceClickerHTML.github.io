@@ -82,6 +82,12 @@ function updateDisplay() {
     document.getElementById('coins').textContent = player.coins;
     document.getElementById('rebirths').textContent = player.rebirths;
 
+    const rebirthButton = document.getElementById('rebirthButton');
+    if (player.level >= 100) {
+        rebirthButton.style.display = 'block';  // Make sure this line executes correctly
+    } else {
+        rebirthButton.style.display = 'none';
+    }
     const imagesContainer = document.getElementById('collectedImages');
     imagesContainer.innerHTML = ''; // Clear previous images
     if (player.collectedImages.length > 0) {
