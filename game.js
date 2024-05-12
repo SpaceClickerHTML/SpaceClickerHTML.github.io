@@ -25,17 +25,19 @@ function attemptCollect() {
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
+    console.log(`Collected Images: ${player.collectedImages.length}, Total Needed: ${player.totalImagesRequired}`);
 
     if (player.collectedImages.length >= player.totalImagesRequired) {
         player.level++;
-        player.totalImagesRequired += 5 * player.level; // Make sure this calculation is correct
+        player.totalImagesRequired += 5 * player.level; // Increment images required by 5 times the new level
+        console.log(`New Level: ${player.level}, New Image Requirement: ${player.totalImagesRequired}`);
         showNotification(`Level up! You are now Level ${player.level}.`);
     }
 
     updateDisplay();
     saveGameState();
-
 }
+
 
 function confirmRebirth() {
     if (player.rebirths < 10) {
