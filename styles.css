@@ -182,4 +182,18 @@ h2 {
     text-align: center;
 }
 
-/* Additional styles for notification and modal can stay the same */
+.companion-entry {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.companion-image {
+    width: 50px;  
+    height: auto;
+    margin-right: 10px;
+}
+
+.companion-info {
+    font-size: 16px;
+}
