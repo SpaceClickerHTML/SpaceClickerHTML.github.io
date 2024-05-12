@@ -25,38 +25,37 @@ function attemptCollect() {
     const imageRarity = randomImage();
     player.collectedImages.push(imageRarity);
     player.coins += 5;
-    console.log(`Collected Images: ${player.collectedImages.length}, Total Needed: ${player.totalImagesRequired}`);
 
     if (player.collectedImages.length >= player.totalImagesRequired) {
-        player.level++;
-        player.totalImagesRequired += 5 * player.level; // Increment images required by 5 times the new level
-        console.log(`New Level: ${player.level}, New Image Requirement: ${player.totalImagesRequired}`);
-        showNotification(`Level up! You are now Level ${player.level}.`);
+        if (player.level < 100) {
+            player.level++;
+            player.totalImagesRequired += 5 * player.level;
+            let luckMessage = `Congratulations! You've leveled up to Level ${player.level}. Your luck has increased to x${calculateLuckFactor()}!`;
+            showNotification(luckMessage);
+        }
     }
 
     updateDisplay();
     saveGameState();
 }
 
-
 function confirmRebirth() {
     if (player.rebirths < 10) {
         player.rebirths++;
         player.level = 1;
         player.coins = 0;
-        player.totalImagesRequired = 5;  // Make sure this value is correctly initialized
+        player.collectedImages = [];
+        player.totalImagesRequired = 5;
         player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
         updateDisplay();
         saveGameState();
         showNotification(`Congratulations! You've rebirthed. Your luck has increased to x${player.luckFactor}!`);
-        hideRebirthConfirmation();
+        hideRebirthConfirmation(); // Close the rebirth confirmation popup
     } else {
         alert("Maximum number of rebirths reached.");
         hideRebirthConfirmation();
     }
 }
-
-
 
 
 function calculateLuckFactor() {
