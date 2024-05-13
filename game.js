@@ -81,27 +81,29 @@ function updateDisplay() {
     document.getElementById('rebirths').textContent = player.rebirths;
 
     const rebirthButton = document.getElementById('rebirthButton');
-    if (player.level >= 100) {
-        rebirthButton.style.display = 'block';  // Make sure this line executes correctly
-    } else {
-        rebirthButton.style.display = 'none';
-    }
+    rebirthButton.style.display = (player.level >= 100) ? 'block' : 'none';
+
+    // Update the image display to only add new images since the last displayed one
     const imagesContainer = document.getElementById('collectedImages');
-    imagesContainer.innerHTML = ''; // Clear previous images
-    if (player.collectedImages.length > 0) {
-        const latestRarity = player.collectedImages[player.collectedImages.length - 1];
+    let lastDisplayed = player.lastDisplayedIndex || 0;  // Use a new property to track the last index displayed
+
+    for (let i = lastDisplayed; i < player.collectedImages.length; i++) {
+        const rarity = player.collectedImages[i];
         const imgElement = document.createElement('img');
-        imgElement.src = imagesByRarity[latestRarity][0];
-        imgElement.alt = latestRarity;
+        imgElement.src = imagesByRarity[rarity][0];
+        imgElement.alt = rarity;
         imgElement.className = 'collected-image';
         imagesContainer.appendChild(imgElement);
 
         const rarityLabel = document.createElement('div');
-        rarityLabel.textContent = latestRarity.charAt(0).toUpperCase() + latestRarity.slice(1); // Capitalize the first letter
-        rarityLabel.className = `rarity-text ${latestRarity}`;
+        rarityLabel.textContent = rarity.charAt(0).toUpperCase() + rarity.slice(1); // Capitalize the first letter
+        rarityLabel.className = `rarity-text ${rarity}`;
         imagesContainer.appendChild(rarityLabel);
     }
+
+    player.lastDisplayedIndex = player.collectedImages.length;  // Update the last displayed index
 }
+
 
 
 
