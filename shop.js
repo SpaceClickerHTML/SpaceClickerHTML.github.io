@@ -1,3 +1,7 @@
+let player = {
+    alienCompanions: []  // To store bought companions
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     updateInventoryDisplay();
 });
@@ -93,3 +97,14 @@ function buyEggs(quantity) {
         showNotification('Not enough coins!', 'error');
     }
 }
+
+let player = loadPlayerState();
+
+function loadPlayerState() {
+    const savedState = localStorage.getItem('playerState');
+    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateInventoryDisplay();
+});
