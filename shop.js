@@ -77,6 +77,6 @@ const imagesByCompanionRarity = {
     common: ['images/companions/common/alien.jpg'],
     uncommon: ['images/companions/uncommon/alien.jpg'],
     rare: ['images/companions/rare/alien.jpg'],
-    epic: ['images/companions/epic/alien1.png'],
-    legendary: ['images/companions/legendary/alien1.png']
+    epic: ['images/companions/epic/alien.jpg'],
+    legendary: ['images/companions/legendary/alien.jpg']
 };
