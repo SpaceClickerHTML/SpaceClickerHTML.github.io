@@ -38,22 +38,23 @@ function attemptCollect() {
     updateDisplay();
     saveGameState();
 }
-
 function confirmRebirth() {
     if (player.rebirths < 10) {
         player.rebirths++;
         player.level = 1;
         player.totalImagesRequired = 5;
-        player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
+        player.luckFactor = Math.pow(2, player.rebirths);
+        // Do not reset lastDisplayedIndex here
         updateDisplay();
         saveGameState();
         showNotification(`Congratulations! You've rebirthed. Your luck has increased to x${player.luckFactor}!`);
-        hideRebirthConfirmation(); // Close the rebirth confirmation popup
+        hideRebirthConfirmation();
     } else {
         alert("Maximum number of rebirths reached.");
         hideRebirthConfirmation();
     }
 }
+
 
 
 function calculateLuckFactor() {
