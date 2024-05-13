@@ -19,13 +19,16 @@ function loadPlayerState() {
 }
 
 function buyEggs(quantity) {
-    const cost = quantity * 100; // Each egg costs 100 coins
+    const cost = quantity * 100;
     if (player.coins >= cost) {
         player.coins -= cost;
+        let newCompanions = [];
         for (let i = 0; i < quantity; i++) {
-            addCompanionToInventory();
+            const newCompanion = addCompanionToInventory();
+            newCompanions.push(newCompanion);
         }
-        updateDisplay(); // Update coins and other player info
+        displayNewCompanions(newCompanions);
+        updateDisplay();
         updateInventoryDisplay();
         showNotification(`Successfully purchased ${quantity} egg(s)!`, 'success');
     } else {
@@ -33,12 +36,29 @@ function buyEggs(quantity) {
     }
 }
 
+function displayNewCompanions(companions) {
+    const displayArea = document.getElementById('newCompanionsDisplay');
+    displayArea.innerHTML = ''; // Clear previous display
+    companions.forEach(comp => {
+        const imgElement = document.createElement('img');
+        imgElement.src = comp.image;
+        imgElement.alt = comp.rarity;
+        imgElement.className = 'companion-image';
+        displayArea.appendChild(imgElement);
+    });
+
+    // Optionally, set a timeout to clear this display after a while or move to inventory
+    setTimeout(() => {
+        displayArea.innerHTML = ''; // Clear the display after showing new companions
+    }, 5000); // Adjust time as needed
+}
+
 function addCompanionToInventory() {
     const rarity = determineRarity();
     const imageChoices = imagesByCompanionRarity[rarity];
     if (!imageChoices) {
         console.error("No images found for rarity:", rarity);
-        return; // Exit the function if no images available for the determined rarity
+        return;
     }
     const imageIndex = Math.floor(Math.random() * imageChoices.length);
     const selectedImage = imageChoices[imageIndex];
@@ -49,7 +69,9 @@ function addCompanionToInventory() {
         luckMultiplier: getLuckMultiplierForRarity(rarity)
     };
     player.alienCompanions.push(newCompanion);
+    return newCompanion; // Return the new companion for display
 }
+
 
 function determineRarity() {
     const roll = Math.random() * 100;
