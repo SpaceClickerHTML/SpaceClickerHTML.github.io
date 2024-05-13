@@ -1,12 +1,4 @@
-let player = {
-    alienCompanions: []  // To store bought companions
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateInventoryDisplay();
-});
-
-let player = loadPlayerState();
+let player = loadPlayerState();  // Initialize the player from saved state or set default
 
 const imagesByCompanionRarity = {
     common: ['images/companions/common/alien.jpg'],
@@ -18,6 +10,7 @@ const imagesByCompanionRarity = {
 
 document.addEventListener('DOMContentLoaded', () => {
     updateInventoryDisplay();
+    updateDisplay(); // Ensure the display is updated when the document loads
 });
 
 function loadPlayerState() {
@@ -112,6 +105,5 @@ function showNotification(message, type = 'info') {
 
 function updateDisplay() {
     // Ensure this function updates relevant parts of your HTML to reflect the current state
-    // For example:
     document.getElementById('coins').textContent = player.coins;
 }
