@@ -16,7 +16,9 @@ function addCompanionToInventory() {
     }
     const imageIndex = Math.floor(Math.random() * imageChoices.length);
     const selectedImage = imageChoices[imageIndex];
-
+    console.log("Rarity determined:", rarity);
+    console.log("Image choices available:", imageChoices);
+    
     const newCompanion = {
         rarity: rarity,
         image: selectedImage,
