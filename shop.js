@@ -80,3 +80,29 @@ const imagesByCompanionRarity = {
     epic: ['images/companions/epic/alien.jpg'],
     legendary: ['images/companions/legendary/alien.jpg']
 };
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+function buyEggs(quantity) {
+    const cost = quantity * 100; // Each egg costs 100 coins
+    if (player.coins >= cost) {
+        player.coins -= cost;
+        for (let i = 0; i < quantity; i++) {
+            addCompanionToInventory();
+        }
+        updateDisplay(); // Update coins and other player info
+        updateInventoryDisplay();
+        showNotification(`Successfully purchased ${quantity} egg(s)!`, 'success');
+    } else {
+        showNotification('Not enough coins!', 'error');
+    }
+}
