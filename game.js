@@ -38,23 +38,22 @@ function attemptCollect() {
     updateDisplay();
     saveGameState();
 }
+
 function confirmRebirth() {
     if (player.rebirths < 10) {
         player.rebirths++;
         player.level = 1;
         player.totalImagesRequired = 5;
-        player.luckFactor = Math.pow(2, player.rebirths);
-        // Do not reset lastDisplayedIndex here
+        player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
         updateDisplay();
         saveGameState();
         showNotification(`Congratulations! You've rebirthed. Your luck has increased to x${player.luckFactor}!`);
-        hideRebirthConfirmation();
+        hideRebirthConfirmation(); // Close the rebirth confirmation popup
     } else {
         alert("Maximum number of rebirths reached.");
         hideRebirthConfirmation();
     }
 }
-
 
 
 function calculateLuckFactor() {
@@ -82,29 +81,27 @@ function updateDisplay() {
     document.getElementById('rebirths').textContent = player.rebirths;
 
     const rebirthButton = document.getElementById('rebirthButton');
-    rebirthButton.style.display = (player.level >= 100) ? 'block' : 'none';
-
-    // Update the image display to only add new images since the last displayed one
+    if (player.level >= 100) {
+        rebirthButton.style.display = 'block';  // Make sure this line executes correctly
+    } else {
+        rebirthButton.style.display = 'none';
+    }
     const imagesContainer = document.getElementById('collectedImages');
-    let lastDisplayed = player.lastDisplayedIndex || 0;  // Use a new property to track the last index displayed
-
-    for (let i = lastDisplayed; i < player.collectedImages.length; i++) {
-        const rarity = player.collectedImages[i];
+    imagesContainer.innerHTML = ''; // Clear previous images
+    if (player.collectedImages.length > 0) {
+        const latestRarity = player.collectedImages[player.collectedImages.length - 1];
         const imgElement = document.createElement('img');
-        imgElement.src = imagesByRarity[rarity][0];
-        imgElement.alt = rarity;
+        imgElement.src = imagesByRarity[latestRarity][0];
+        imgElement.alt = latestRarity;
         imgElement.className = 'collected-image';
         imagesContainer.appendChild(imgElement);
 
         const rarityLabel = document.createElement('div');
-        rarityLabel.textContent = rarity.charAt(0).toUpperCase() + rarity.slice(1); // Capitalize the first letter
-        rarityLabel.className = `rarity-text ${rarity}`;
+        rarityLabel.textContent = latestRarity.charAt(0).toUpperCase() + latestRarity.slice(1); // Capitalize the first letter
+        rarityLabel.className = `rarity-text ${latestRarity}`;
         imagesContainer.appendChild(rarityLabel);
     }
-
-    player.lastDisplayedIndex = player.collectedImages.length;  // Update the last displayed index
 }
-
 
 
 
