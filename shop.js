@@ -2,19 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateInventoryDisplay();
 });
 
-function buyEggs(quantity) {
-    const cost = quantity * 100; // Each egg costs 100 coins
-    if (player.coins >= cost) {
-        player.coins -= cost;
-        for (let i = 0; i < quantity; i++) {
-            addCompanionToInventory();
-        }
-        updateDisplay(); // Update coins and other player info
-        updateInventoryDisplay();
-    } else {
-        alert('Not enough coins!');
-    }
-}
 
 function addCompanionToInventory() {
     const rarity = determineRarity();
