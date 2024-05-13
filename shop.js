@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function addCompanionToInventory() {
     const rarity = determineRarity();
     const imageChoices = imagesByCompanionRarity[rarity];
+    if (!imageChoices) {
+        console.error("No images found for rarity:", rarity);
+        return; // Exit the function if no images available for the determined rarity
+    }
     const imageIndex = Math.floor(Math.random() * imageChoices.length);
     const selectedImage = imageChoices[imageIndex];
 
@@ -20,6 +24,7 @@ function addCompanionToInventory() {
     };
     player.alienCompanions.push(newCompanion);
 }
+
 
 
 function determineRarity() {
