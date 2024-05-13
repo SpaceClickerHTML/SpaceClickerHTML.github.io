@@ -6,6 +6,39 @@ document.addEventListener('DOMContentLoaded', () => {
     updateInventoryDisplay();
 });
 
+let player = loadPlayerState();
+
+const imagesByCompanionRarity = {
+    common: ['images/companions/common/alien.jpg'],
+    uncommon: ['images/companions/uncommon/alien.jpg'],
+    rare: ['images/companions/rare/alien.jpg'],
+    epic: ['images/companions/epic/alien.jpg'],
+    legendary: ['images/companions/legendary/alien.jpg']
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateInventoryDisplay();
+});
+
+function loadPlayerState() {
+    const savedState = localStorage.getItem('playerState');
+    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
+}
+
+function buyEggs(quantity) {
+    const cost = quantity * 100; // Each egg costs 100 coins
+    if (player.coins >= cost) {
+        player.coins -= cost;
+        for (let i = 0; i < quantity; i++) {
+            addCompanionToInventory();
+        }
+        updateDisplay(); // Update coins and other player info
+        updateInventoryDisplay();
+        showNotification(`Successfully purchased ${quantity} egg(s)!`, 'success');
+    } else {
+        showNotification('Not enough coins!', 'error');
+    }
+}
 
 function addCompanionToInventory() {
     const rarity = determineRarity();
@@ -16,9 +49,7 @@ function addCompanionToInventory() {
     }
     const imageIndex = Math.floor(Math.random() * imageChoices.length);
     const selectedImage = imageChoices[imageIndex];
-    console.log("Rarity determined:", rarity);
-    console.log("Image choices available:", imageChoices);
-    
+
     const newCompanion = {
         rarity: rarity,
         image: selectedImage,
@@ -26,8 +57,6 @@ function addCompanionToInventory() {
     };
     player.alienCompanions.push(newCompanion);
 }
-
-
 
 function determineRarity() {
     const roll = Math.random() * 100;
@@ -70,15 +99,6 @@ function updateInventoryDisplay() {
     });
 }
 
-
-const imagesByCompanionRarity = {
-    common: ['images/companions/common/alien.jpg'],
-    uncommon: ['images/companions/uncommon/alien.jpg'],
-    rare: ['images/companions/rare/alien.jpg'],
-    epic: ['images/companions/epic/alien.jpg'],
-    legendary: ['images/companions/legendary/alien.jpg']
-};
-
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
@@ -90,28 +110,8 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-function buyEggs(quantity) {
-    const cost = quantity * 100; // Each egg costs 100 coins
-    if (player.coins >= cost) {
-        player.coins -= cost;
-        for (let i = 0; i < quantity; i++) {
-            addCompanionToInventory();
-        }
-        updateDisplay(); // Update coins and other player info
-        updateInventoryDisplay();
-        showNotification(`Successfully purchased ${quantity} egg(s)!`, 'success');
-    } else {
-        showNotification('Not enough coins!', 'error');
-    }
+function updateDisplay() {
+    // Ensure this function updates relevant parts of your HTML to reflect the current state
+    // For example:
+    document.getElementById('coins').textContent = player.coins;
 }
-
-let player = loadPlayerState();
-
-function loadPlayerState() {
-    const savedState = localStorage.getItem('playerState');
-    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateInventoryDisplay();
-});
