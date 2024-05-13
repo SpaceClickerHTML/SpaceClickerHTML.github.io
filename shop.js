@@ -74,9 +74,9 @@ function updateInventoryDisplay() {
 
 
 const imagesByCompanionRarity = {
-    common: ['images/companions/common/alien1.png', 'images/companions/common/alien2.png'],
-    uncommon: ['images/companions/uncommon/alien1.png', 'images/companions/uncommon/alien2.png'],
-    rare: ['images/companions/rare/alien1.png', 'images/companions/rare/alien2.png'],
-    epic: ['images/companions/epic/alien1.png', 'images/companions/epic/alien2.png'],
-    legendary: ['images/companions/legendary/alien1.png', 'images/companions/legendary/alien2.png']
+    common: ['images/companions/common/alien.jpg'],
+    uncommon: ['images/companions/uncommon/alien.jpg'],
+    rare: ['images/companions/rare/alien1.png'],
+    epic: ['images/companions/epic/alien1.png'],
+    legendary: ['images/companions/legendary/alien1.png']
 };
