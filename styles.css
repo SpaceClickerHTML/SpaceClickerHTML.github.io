@@ -188,12 +188,24 @@ h2 {
     margin: 10px;
 }
 
-.companion-image {
-    width: 50px;  
-    height: auto;
-    margin-right: 10px;
-}
-
 .companion-info {
     font-size: 16px;
+}
+
+.companion-display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.companion-image {
+    margin: 5px;
+    width: 50px; /* Adjust size according to your preference */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.companion-image:hover {
+    transform: scale(1.1); /* Simple hover effect to enlarge images */
 }
