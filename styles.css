@@ -98,18 +98,27 @@ h2 {
 }
 .notification {
     position: fixed;
-    top: 20%;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1000;
-    background-color: #f4f4f9;
-    border: 1px solid #ccc;
     padding: 10px 20px;
-    color: #333;
-    font-size: 1.2em;
+    color: white;
     border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    animation: fadeInOut 3s;
+    z-index: 1000;
+    display: block;
+    background-color: lightgray; /* default style */
+}
+
+.notification.success {
+    background-color: green;
+}
+
+.notification.error {
+    background-color: red;
+}
+
+.notification.info {
+    background-color: blue;
 }
 
 @keyframes fadeInOut {
