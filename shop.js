@@ -1,6 +1,12 @@
+document.addEventListener('DOMContentLoaded', () => {
+    updateInventoryDisplay();
+    updateDisplay(); // Ensure the display is updated when the document loads
+});
+
 function loadPlayerState() {
     const savedState = localStorage.getItem('playerState');
-    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
+    const defaultState = { coins: 1000, alienCompanions: [] };
+    return savedState ? JSON.parse(savedState) : defaultState;
 }
 
 let player = loadPlayerState();  // Initialize the player from saved state or set default
@@ -12,11 +18,6 @@ const imagesByCompanionRarity = {
     Epic: ['images/companions/epic/alien.jpg'],
     Legendary: ['images/companions/legendary/alien.jpg']
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateInventoryDisplay();
-    updateDisplay(); // Ensure the display is updated when the document loads
-});
 
 function buyEggs(quantity) {
     const cost = quantity * 100;
