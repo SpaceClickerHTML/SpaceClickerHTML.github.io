@@ -1,22 +1,22 @@
+function loadPlayerState() {
+    const savedState = localStorage.getItem('playerState');
+    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
+}
+
 let player = loadPlayerState();  // Initialize the player from saved state or set default
 
 const imagesByCompanionRarity = {
-    common: ['images/companions/common/alien.jpg'],
-    uncommon: ['images/companions/uncommon/alien.jpg'],
-    rare: ['images/companions/rare/alien.jpg'],
-    epic: ['images/companions/epic/alien.jpg'],
-    legendary: ['images/companions/legendary/alien.jpg']
+    Common: ['images/companions/common/alien.jpg'],
+    Uncommon: ['images/companions/uncommon/alien.jpg'],
+    Rare: ['images/companions/rare/alien.jpg'],
+    Epic: ['images/companions/epic/alien.jpg'],
+    Legendary: ['images/companions/legendary/alien.jpg']
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     updateInventoryDisplay();
     updateDisplay(); // Ensure the display is updated when the document loads
 });
-
-function loadPlayerState() {
-    const savedState = localStorage.getItem('playerState');
-    return savedState ? JSON.parse(savedState) : { coins: 1000, alienCompanions: [] };
-}
 
 function buyEggs(quantity) {
     const cost = quantity * 100;
@@ -25,7 +25,7 @@ function buyEggs(quantity) {
         let newCompanions = [];
         for (let i = 0; i < quantity; i++) {
             const newCompanion = addCompanionToInventory();
-            newCompanions.push(newCompanion);
+            if (newCompanion) newCompanions.push(newCompanion); // Only push valid companions
         }
         displayNewCompanions(newCompanions);
         updateDisplay();
@@ -40,11 +40,13 @@ function displayNewCompanions(companions) {
     const displayArea = document.getElementById('newCompanionsDisplay');
     displayArea.innerHTML = ''; // Clear previous display
     companions.forEach(comp => {
-        const imgElement = document.createElement('img');
-        imgElement.src = comp.image;
-        imgElement.alt = comp.rarity;
-        imgElement.className = 'companion-image';
-        displayArea.appendChild(imgElement);
+        if (comp && comp.image) { // Check if companion is valid
+            const imgElement = document.createElement('img');
+            imgElement.src = comp.image;
+            imgElement.alt = comp.rarity;
+            imgElement.className = 'companion-image';
+            displayArea.appendChild(imgElement);
+        }
     });
 
     // Optionally, set a timeout to clear this display after a while or move to inventory
@@ -58,7 +60,7 @@ function addCompanionToInventory() {
     const imageChoices = imagesByCompanionRarity[rarity];
     if (!imageChoices) {
         console.error("No images found for rarity:", rarity);
-        return;
+        return null; // Return null if no images available for the determined rarity
     }
     const imageIndex = Math.floor(Math.random() * imageChoices.length);
     const selectedImage = imageChoices[imageIndex];
@@ -71,7 +73,6 @@ function addCompanionToInventory() {
     player.alienCompanions.push(newCompanion);
     return newCompanion; // Return the new companion for display
 }
-
 
 function determineRarity() {
     const roll = Math.random() * 100;
@@ -95,23 +96,27 @@ function getLuckMultiplierForRarity(rarity) {
 function updateInventoryDisplay() {
     const inventory = document.getElementById('inventory');
     inventory.innerHTML = '<h2>Your Companions</h2>'; // Clear previous content
-    player.alienCompanions.forEach(comp => {
-        const companionDiv = document.createElement('div');
-        companionDiv.className = 'companion-entry';
+    if (player.alienCompanions && player.alienCompanions.length > 0) {
+        player.alienCompanions.forEach(comp => {
+            const companionDiv = document.createElement('div');
+            companionDiv.className = 'companion-entry';
 
-        const imgElement = document.createElement('img');
-        imgElement.src = comp.image;
-        imgElement.alt = comp.rarity;
-        imgElement.className = 'companion-image';
+            const imgElement = document.createElement('img');
+            imgElement.src = comp.image;
+            imgElement.alt = comp.rarity;
+            imgElement.className = 'companion-image';
 
-        const textDiv = document.createElement('div');
-        textDiv.textContent = `${comp.rarity} - Luck: x${comp.luckMultiplier}`;
-        textDiv.className = 'companion-info';
+            const textDiv = document.createElement('div');
+            textDiv.textContent = `${comp.rarity} - Luck: x${comp.luckMultiplier}`;
+            textDiv.className = 'companion-info';
 
-        companionDiv.appendChild(imgElement);
-        companionDiv.appendChild(textDiv);
-        inventory.appendChild(companionDiv);
-    });
+            companionDiv.appendChild(imgElement);
+            companionDiv.appendChild(textDiv);
+            inventory.appendChild(companionDiv);
+        });
+    } else {
+        console.log("No companions to display.");
+    }
 }
 
 function showNotification(message, type = 'info') {
@@ -127,5 +132,10 @@ function showNotification(message, type = 'info') {
 
 function updateDisplay() {
     // Ensure this function updates relevant parts of your HTML to reflect the current state
-    document.getElementById('coins').textContent = player.coins;
+    const coinsDisplay = document.getElementById('coins');
+    if (coinsDisplay) {
+        coinsDisplay.textContent = player.coins;
+    } else {
+        console.error("Element with id 'coins' not found.");
+    }
 }
