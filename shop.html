@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop</title>
+    <title>Alien Companion Shop</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="shop.js"></script>
 </head>
 <body>
-    <div id="coins">1000</div>
-    <button onclick="buyEggs(1)">Buy 1 Egg</button>
-    <button onclick="buyEggs(5)">Buy 5 Eggs</button>
-    <button onclick="buyEggs(10)">Buy 10 Eggs</button>
-    <div id="inventory"></div>
-    <div id="newCompanionsDisplay"></div>
+    <h1>Alien Companion Shop</h1>
+    <div class="center-container">
+        <img src="egg.png" alt="Egg" id="eggImage">
+        <div id="buyOptions">
+            <button onclick="buyEggs(1)">Buy 1 for 100 coins</button>
+            <button onclick="buyEggs(3)">Buy 3 for 300 coins</button>
+            <button onclick="buyEggs(10)">Buy 10 for 1000 coins</button>
+        </div>
+    </div>
+    <div id="newCompanionsDisplay" class="companion-display"></div> <!-- New container for displaying new companions -->
+    <div id="inventory">
+        <h2>Your Companions</h2>
+        <!-- Companions will be appended here -->
+    </div>    
+    <script src="shop.js"></script>
 </body>
 </html>
