@@ -118,7 +118,7 @@ function hideRebirthConfirmation() {
     document.getElementById('rebirthModal').style.display = 'none';
 }
 
-function showNotification(message) {
+function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = 'notification';
     notification.textContent = message;
