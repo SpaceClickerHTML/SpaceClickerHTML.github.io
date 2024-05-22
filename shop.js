@@ -115,28 +115,30 @@ function getLuckMultiplierForRarity(rarity) {
 function updateInventoryDisplay() {
     const inventory = document.getElementById('inventory');
     inventory.innerHTML = '<h2>Your Companions</h2>'; // Clear previous content
-    if (player.alienCompanions && player.alienCompanions.length > 0) {
-        player.alienCompanions.forEach(comp => {
-            const companionDiv = document.createElement('div');
-            companionDiv.className = 'companion-entry';
+    const companionCounts = countCompanionsByRarity(player.alienCompanions);
+    Object.entries(companionCounts).forEach(([rarity, count]) => {
+        const companionDiv = document.createElement('div');
+        companionDiv.className = 'companion-entry';
 
-            const imgElement = document.createElement('img');
-            imgElement.src = comp.image;
-            imgElement.alt = comp.rarity;
-            imgElement.className = 'companion-image';
+        const rarityText = document.createElement('div');
+        rarityText.textContent = `${rarity.charAt(0).toUpperCase() + rarity.slice(1)}: ${count}`;
+        rarityText.className = 'companion-info';
 
-            const textDiv = document.createElement('div');
-            textDiv.textContent = `${comp.rarity} - Luck: x${comp.luckMultiplier}`;
-            textDiv.className = 'companion-info';
-
-            companionDiv.appendChild(imgElement);
-            companionDiv.appendChild(textDiv);
-            inventory.appendChild(companionDiv);
-        });
-    } else {
-        console.log("No companions to display.");
-    }
+        companionDiv.appendChild(rarityText);
+        inventory.appendChild(companionDiv);
+    });
 }
+
+function countCompanionsByRarity(companions) {
+    const counts = {};
+    companions.forEach(comp => {
+        if (comp && comp.rarity) {
+            counts[comp.rarity] = (counts[comp.rarity] || 0) + 1;
+        }
+    });
+    return counts;
+}
+
 
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
