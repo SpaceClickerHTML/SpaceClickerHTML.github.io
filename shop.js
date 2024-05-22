@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    player = loadPlayerState();  // Initialize the player from saved state or set default
     updateInventoryDisplay();
     updateDisplay(); // Ensure the display is updated when the document loads
 });
@@ -6,10 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadPlayerState() {
     const savedState = localStorage.getItem('playerState');
     const defaultState = { coins: 1000, alienCompanions: [] };
-    return savedState ? JSON.parse(savedState) : defaultState;
+    const loadedState = savedState ? JSON.parse(savedState) : defaultState;
+    
+    // Ensure alienCompanions is an array
+    if (!Array.isArray(loadedState.alienCompanions)) {
+        loadedState.alienCompanions = [];
+    }
+    
+    return loadedState;
 }
 
-let player = loadPlayerState();  // Initialize the player from saved state or set default
+let player;
 
 const imagesByCompanionRarity = {
     Common: ['images/companions/common/alien.jpg'],
@@ -63,9 +71,6 @@ function displayNewCompanions(companions) {
 }
 
 function addCompanionToInventory() {
-    if (!player.alienCompanions) {
-        player.alienCompanions = []; // Ensure alienCompanions is initialized
-    }
     const rarity = determineRarity();
     const imageChoices = imagesByCompanionRarity[rarity];
     if (!imageChoices) {
