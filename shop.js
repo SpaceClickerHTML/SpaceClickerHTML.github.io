@@ -63,6 +63,9 @@ function displayNewCompanions(companions) {
 }
 
 function addCompanionToInventory() {
+    if (!player.alienCompanions) {
+        player.alienCompanions = []; // Ensure alienCompanions is initialized
+    }
     const rarity = determineRarity();
     const imageChoices = imagesByCompanionRarity[rarity];
     if (!imageChoices) {
