@@ -44,6 +44,7 @@ function buyEggs(quantity) {
         updateDisplay();
         updateInventoryDisplay();
         showNotification(`Successfully purchased ${quantity} egg(s)!`, 'success');
+        savePlayerState(); // Save the updated state
     } else {
         showNotification('Not enough coins!', 'error');
     }
@@ -85,6 +86,11 @@ function addCompanionToInventory() {
         image: selectedImage,
         luckMultiplier: getLuckMultiplierForRarity(rarity)
     };
+
+    if (!player.alienCompanions) {
+        player.alienCompanions = []; // Initialize the array if it doesn't exist
+    }
+
     player.alienCompanions.push(newCompanion);
     return newCompanion; // Return the new companion for display
 }
@@ -153,4 +159,8 @@ function updateDisplay() {
     } else {
         console.error("Element with id 'coins' not found.");
     }
+}
+
+function savePlayerState() {
+    localStorage.setItem('playerState', JSON.stringify(player));
 }
