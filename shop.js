@@ -25,7 +25,11 @@ function buyEggs(quantity) {
         let newCompanions = [];
         for (let i = 0; i < quantity; i++) {
             const newCompanion = addCompanionToInventory();
-            if (newCompanion) newCompanions.push(newCompanion); // Only push valid companions
+            if (newCompanion) {
+                newCompanions.push(newCompanion); // Only push valid companions
+            } else {
+                console.error("Failed to add new companion.");
+            }
         }
         displayNewCompanions(newCompanions);
         updateDisplay();
@@ -46,6 +50,8 @@ function displayNewCompanions(companions) {
             imgElement.alt = comp.rarity;
             imgElement.className = 'companion-image';
             displayArea.appendChild(imgElement);
+        } else {
+            console.error("Invalid companion:", comp);
         }
     });
 
