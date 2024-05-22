@@ -43,6 +43,8 @@ function confirmRebirth() {
     if (player.rebirths < 10) {
         player.rebirths++;
         player.level = 1;
+        player.coins = 0;
+        player.collectedImages = [];
         player.totalImagesRequired = 5;
         player.luckFactor = Math.pow(2, player.rebirths); // Update luck factor
         updateDisplay();
@@ -116,34 +118,16 @@ function hideRebirthConfirmation() {
     document.getElementById('rebirthModal').style.display = 'none';
 }
 
-function showNotification(message, type = 'info') {
+function showNotification(message) {
     const notification = document.createElement('div');
-    notification.className = `notification ${type}`;  // Allows for different styles based on the type of message
+    notification.className = 'notification';
     notification.textContent = message;
     document.body.appendChild(notification);
-
-    // Animate notification entrance and exit
-    notification.style.opacity = 0;
-    let opacity = 0;
-    const fadeIn = setInterval(() => {
-        if (opacity >= 1) clearInterval(fadeIn);
-        opacity += 0.05;
-        notification.style.opacity = opacity;
-    }, 10);
-
     // Remove the notification after 3 seconds
     setTimeout(() => {
-        const fadeOut = setInterval(() => {
-            if (opacity <= 0) {
-                clearInterval(fadeOut);
-                notification.remove();
-            }
-            opacity -= 0.05;
-            notification.style.opacity = opacity;
-        }, 10);
+        notification.remove();
     }, 3000);
 }
-
 
 
 function saveGameState() {
@@ -170,4 +154,3 @@ function getProbabilityThresholds(level, luckFactor) {
         universe: 100 * luckFactor + scale * 900 // Becomes less rare
     };
 }
-
