@@ -1,3 +1,5 @@
+let player;
+
 document.addEventListener('DOMContentLoaded', () => {
     player = loadPlayerState();  // Initialize the player from saved state or set default
     updateInventoryDisplay();
