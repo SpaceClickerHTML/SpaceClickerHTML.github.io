@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Drift — Alien Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+  <div class="eyebrow">Companion Bay</div>
+  <h1 class="page-title">Alien Shop</h1>
+  <p class="page-sub">Hatch eggs to adopt companions. Each one boosts your luck and generates coins automatically, even while you're away.</p>
+
+  <div class="panel egg-panel">
+    <div class="egg-visual" id="eggVisual"></div>
+    <div class="stat-row" style="margin-bottom:18px;">
+      <div class="stat-chip"><span class="lbl">Coins</span> <b id="coins">0</b></div>
+    </div>
+    <div class="buy-row">
+      <button class="btn" onclick="buyEggs(1)">Buy 1 — 100 🪙</button>
+      <button class="btn" onclick="buyEggs(3)">Buy 3 — 300 🪙</button>
+      <button class="btn" onclick="buyEggs(10)">Buy 10 — 1000 🪙</button>
+    </div>
+  </div>
+
+  <div class="new-companions-row" id="newCompanionsDisplay"></div>
+
+  <div class="section-heading">
+    <h2>Your Companions</h2>
+    <div class="luck-total" id="luckTotal"></div>
+  </div>
+  <div id="inventory" class="companion-grid"></div>
+</div>
+
+<script src="shared.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

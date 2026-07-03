@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nova Drift — Collector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+  <div class="collector-hero">
+    <div class="eyebrow">Deep Field Collector</div>
+    <h1 class="page-title">Nova Drift</h1>
+    <p class="page-sub">Tap the singularity to pull a specimen from the void. Level up to shift the odds toward rarer finds.</p>
+
+    <div class="stat-row">
+      <div class="stat-chip"><span class="lbl">Level</span> <b id="level">1</b></div>
+      <div class="stat-chip"><span class="lbl">Rebirths</span> <b id="rebirths">0</b></div>
+      <div class="stat-chip"><span class="lbl">Coins</span> <b id="coins">0</b></div>
+      <div class="stat-chip"><span class="lbl">Luck</span> <b id="luck">x1.00</b></div>
+    </div>
+
+    <div class="bigbang-wrap">
+      <button class="bigbang-orb" id="bigBang" onclick="attemptCollect()" aria-label="Collect a specimen"></button>
+    </div>
+    <div class="bigbang-hint">Click the singularity to collect</div>
+
+    <div class="progress-track" aria-label="Progress to next level">
+      <div class="progress-fill" id="levelProgressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="levelProgressLabel">0 / 5 to next level</div>
+
+    <div class="action-row">
+      <a href="collection.html" class="btn-link">📚 Collection</a>
+      <a href="shop.html" class="btn-link">👽 Alien Shop</a>
+      <a href="achievements.html" class="btn-link">🏆 Achievements</a>
+      <button id="rebirthButton" class="btn btn-danger" onclick="showRebirthConfirmation()" style="display:none;">✨ Rebirth</button>
+    </div>
+
+    <div class="latest-pull" id="collectedImages"></div>
+  </div>
+</div>
+
+<div id="rebirthModal" class="modal">
+  <div class="modal-content">
+    <h3>Rebirth?</h3>
+    <p>All specimens and levels reset to zero, but your luck permanently doubles. This can be done up to 10 times.</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="confirmRebirth()">Confirm Rebirth</button>
+      <button class="btn btn-secondary" onclick="hideRebirthConfirmation()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
